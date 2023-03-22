@@ -1,0 +1,97 @@
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20230322085411)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230322085411"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-03-22 08:55:16.591967"], ["updated_at", "2023-03-22 08:55:16.591967"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/user/register" for 127.0.0.1 at 2023-03-22 12:07:02 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ArgumentError (Unknown validator: 'UniqunessValidator'):
+  
+app/models/user.rb:4:in `<class:User>'
+app/models/user.rb:1:in `<main>'
+Started POST "/user/register" for 127.0.0.1 at 2023-03-22 12:07:24 +0300
+Processing by UsersController#register as */*
+  Parameters: {"email"=>"test@email.com", "user"=>{"email"=>"test@email.com"}}
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: register, request: #<ActionDispatch::Request:0x0000000121daf198>, params: {"email"=>"test@email.com", "controller"=>"users", "action"=>"register", "user"=>{"email"=>"test@email.com"}} }[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@email.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/users_controller.rb:3:in `register'
+Completed 422 Unprocessable Entity in 25ms (ActiveRecord: 0.9ms | Allocations: 42579)
+
+
+  
+ActiveRecord::RecordInvalid (Validation failed: Password can't be blank, Username is too short (minimum is 5 characters), Username can't be blank):
+  
+app/controllers/users_controller.rb:3:in `register'
+Started POST "/user/register" for 127.0.0.1 at 2023-03-22 12:08:20 +0300
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "username": "Pablo Pogo Muchacho"
+  "email": "test@email.com"
+  "password": ""
+}
+Processing by UsersController#register as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms | Allocations: 117)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (Error occurred while parsing request parameters):
+  
+app/controllers/users_controller.rb:13:in `register_params'
+app/controllers/users_controller.rb:3:in `register'
+Started POST "/user/register" for 127.0.0.1 at 2023-03-22 12:09:10 +0300
+Processing by UsersController#register as */*
+  Parameters: {"username"=>"Pablo Pogo Muchacho", "email"=>"test@email.com", "password"=>"[FILTERED]", "user"=>{"username"=>"Pablo Pogo Muchacho", "email"=>"test@email.com"}}
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: register, request: #<ActionDispatch::Request:0x0000000134460228>, params: {"username"=>"Pablo Pogo Muchacho", "email"=>"test@email.com", "password"=>"[FILTERED]", "controller"=>"users", "action"=>"register", "user"=>{"username"=>"Pablo Pogo Muchacho", "email"=>"test@email.com"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "Pablo Pogo Muchacho"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@email.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/users_controller.rb:3:in `register'
+Completed 422 Unprocessable Entity in 5ms (ActiveRecord: 0.3ms | Allocations: 3548)
+
+
+  
+ActiveRecord::RecordInvalid (Validation failed: Password can't be blank, Username is too long (maximum is 8 characters)):
+  
+app/controllers/users_controller.rb:3:in `register'
+Started POST "/user/register" for 127.0.0.1 at 2023-03-22 12:10:04 +0300
+Processing by UsersController#register as */*
+  Parameters: {"username"=>"P_Pogo", "email"=>"ppogo@email.com", "password"=>"[FILTERED]", "user"=>{"username"=>"P_Pogo", "email"=>"ppogo@email.com"}}
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: register, request: #<ActionDispatch::Request:0x000000013346e9c8>, params: {"username"=>"P_Pogo", "email"=>"ppogo@email.com", "password"=>"[FILTERED]", "controller"=>"users", "action"=>"register", "user"=>{"username"=>"P_Pogo", "email"=>"ppogo@email.com"}} }[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "P_Pogo"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "ppogo@email.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mUser Create (1.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["username", "P_Pogo"], ["email", "ppogo@email.com"], ["password_digest", "[FILTERED]"], ["created_at", "2023-03-22 09:10:05.124141"], ["updated_at", "2023-03-22 09:10:05.124141"]]
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:3:in `register'
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = ? AND "users"."id" != ? LIMIT ?[0m  [["username", "P_Pogo"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:4:in `register'
+  [1m[36mUser Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? AND "users"."id" != ? LIMIT ?[0m  [["email", "ppogo@email.com"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:4:in `register'
+Completed 200 OK in 408ms (Views: 0.2ms | ActiveRecord: 2.6ms | Allocations: 4713)
+
+
