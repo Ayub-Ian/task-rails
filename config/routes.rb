@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   # todos
   # resources :todos, only: [:create]
   post '/todos/create', to: "todos#create"
+  put '/todos/:id', to: "todos#update"
 end

@@ -321,3 +321,21 @@ Processing by TodosController#create as */*
 Completed 200 OK in 29ms (Views: 0.2ms | ActiveRecord: 2.1ms | Allocations: 32951)
 
 
+Started PUT "/todos/1" for 127.0.0.1 at 2023-03-23 12:53:41 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TodosController#update as */*
+  Parameters: {"title"=>"Add Todo Endpoint", "description"=>"Make sure you add the create Todo endpoint", "priority"=>0, "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:32:in `user'
+  [1m[36mTodo Load (0.0ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ? AND "todos"."id" = ? LIMIT ?[0m  [["user_id", 2], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+[31mUnpermitted parameter: :id. Context: { controller: TodosController, action: update, request: #<ActionDispatch::Request:0x0000000106ba25f0>, params: {"title"=>"Add Todo Endpoint", "description"=>"Make sure you add the create Todo endpoint", "priority"=>0, "controller"=>"todos", "action"=>"update", "id"=>"1"} }[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.6ms)[0m  [1m[33mUPDATE "todos" SET "priority" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["priority", 0], ["updated_at", "2023-03-23 09:53:41.507357"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 28ms (Views: 0.1ms | ActiveRecord: 1.7ms | Allocations: 67017)
+
+
