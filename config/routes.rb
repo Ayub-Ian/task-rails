@@ -5,4 +5,11 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   post '/user/register', to: "users#register"
+  post '/user/login', to: "users#login"
+  get '/user/login/check', to: "users#check_login_status"
+  delete '/user/logout', to: "users#logout"
+
+  # todos
+  # resources :todos, only: [:create]
+  post '/todos/create', to: "todos#create"
 end
