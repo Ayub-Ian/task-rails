@@ -339,3 +339,166 @@ Processing by TodosController#update as */*
 Completed 200 OK in 28ms (Views: 0.1ms | ActiveRecord: 1.7ms | Allocations: 67017)
 
 
+Started DELETE "/todos/1" for 127.0.0.1 at 2023-03-23 13:03:12 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TodosController#destroy as */*
+  Parameters: {"title"=>"Add Todo Endpoint", "description"=>"Make sure you add the create Todo endpoint", "priority"=>0, "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:32:in `user'
+  [1m[36mTodo Load (0.0ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ? AND "todos"."id" = ? LIMIT ?[0m  [["user_id", 2], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:24:in `destroy'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:24:in `destroy'
+  [1m[36mTodo Destroy (0.5ms)[0m  [1m[31mDELETE FROM "todos" WHERE "todos"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/todos_controller.rb:24:in `destroy'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:24:in `destroy'
+Completed 200 OK in 26ms (Views: 0.1ms | ActiveRecord: 1.5ms | Allocations: 66354)
+
+
+Started POST "/todos" for 127.0.0.1 at 2023-03-27 10:03:32 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [POST] "/todos"):
+  
+Started GET "/todos" for 127.0.0.1 at 2023-03-27 10:03:39 +0300
+Processing by TodosController#index as */*
+  Parameters: {"title"=>"Egg and Cheese Croissant", "priority"=>"medium", "desc"=>"Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant."}
+Filter chain halted as :session_expired? rendered or redirected
+Completed 401 Unauthorized in 3ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 482)
+
+
+Started GET "/main.ea5e0594b876755265f3.hot-update.json" for ::1 at 2023-03-27 10:07:25 +0300
+  
+ActionController::RoutingError (No route matches [GET] "/main.ea5e0594b876755265f3.hot-update.json"):
+  
+Started GET "/" for ::1 at 2023-03-27 10:07:25 +0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/ayubian/.rvm/gems/ruby-2.7.4/gems/railties-7.0.4.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/ayubian/.rvm/gems/ruby-2.7.4/gems/railties-7.0.4.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.6ms | Allocations: 773)
+Completed 200 OK in 17ms (Views: 5.2ms | ActiveRecord: 0.0ms | Allocations: 6649)
+
+
+Started POST "/user/login" for 127.0.0.1 at 2023-03-27 11:24:43 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/Users/ayubian/Documents/moringa-school/development/course-work/phase-4/task-rails/api/app/controllers/application_controller.rb:16: syntax error, unexpected local variable or method, expecting '}'
+            exp: Time.now + (6 * 3600)
+            ^~~
+/Users/ayubian/Documents/moringa-school/development/course-work/phase-4/task-rails/api/app/controllers/application_controller.rb:17: syntax error, unexpected '}', expecting `end'
+        }
+        ^
+/Users/ayubian/Documents/moringa-school/development/course-work/phase-4/task-rails/api/app/controllers/application_controller.rb:42: syntax error, unexpected local variable or method, expecting `do' or '{' or '('
+            data: decode token
+                         ^~~~~
+/Users/ayubian/Documents/moringa-school/development/course-work/phase-4/task-rails/api/app/controllers/application_controller.rb:76: syntax error, unexpected end-of-input, expecting `end'):
+  
+app/controllers/application_controller.rb:16: syntax error, unexpected local variable or method, expecting '}'
+app/controllers/application_controller.rb:17: syntax error, unexpected '}', expecting `end'
+app/controllers/application_controller.rb:42: syntax error, unexpected local variable or method, expecting `do' or '{' or '('
+app/controllers/application_controller.rb:76: syntax error, unexpected end-of-input, expecting `end'
+app/controllers/application_controller.rb:16: syntax error, unexpected local variable or method, expecting '}'
+app/controllers/application_controller.rb:17: syntax error, unexpected '}', expecting `end'
+app/controllers/application_controller.rb:42: syntax error, unexpected local variable or method, expecting `do' or '{' or '('
+app/controllers/application_controller.rb:76: syntax error, unexpected end-of-input, expecting `end'
+app/controllers/users_controller.rb:1:in `<main>'
+Started POST "/user/login" for 127.0.0.1 at 2023-03-27 11:25:31 +0300
+  
+SyntaxError (/Users/ayubian/Documents/moringa-school/development/course-work/phase-4/task-rails/api/app/controllers/application_controller.rb:42: syntax error, unexpected local variable or method, expecting `do' or '{' or '('
+            data: decode token
+                         ^~~~~
+/Users/ayubian/Documents/moringa-school/development/course-work/phase-4/task-rails/api/app/controllers/application_controller.rb:76: syntax error, unexpected end-of-input, expecting `end'):
+  
+app/controllers/application_controller.rb:42: syntax error, unexpected local variable or method, expecting `do' or '{' or '('
+app/controllers/application_controller.rb:76: syntax error, unexpected end-of-input, expecting `end'
+app/controllers/application_controller.rb:42: syntax error, unexpected local variable or method, expecting `do' or '{' or '('
+app/controllers/application_controller.rb:76: syntax error, unexpected end-of-input, expecting `end'
+app/controllers/users_controller.rb:1:in `<main>'
+Started POST "/user/login" for 127.0.0.1 at 2023-03-27 11:26:16 +0300
+Processing by UsersController#login as */*
+  Parameters: {"username"=>"John Doe", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username = 'John Doe' OR email = NULL) ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17:in `login'
+Completed 500 Internal Server Error in 427ms (ActiveRecord: 0.8ms | Allocations: 41794)
+
+
+  
+NameError (undefined local variable or method `unprocessable_entity' for #<UsersController:0x0000000000fed8>):
+  
+app/controllers/application_controller.rb:74:in `standard_error'
+Started POST "/user/login" for 127.0.0.1 at 2023-03-27 11:26:54 +0300
+Processing by UsersController#login as */*
+  Parameters: {"username"=>"John Doe", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username = 'John Doe' OR email = NULL) ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17:in `login'
+Completed 422 Unprocessable Entity in 400ms (Views: 0.2ms | ActiveRecord: 0.6ms | Allocations: 4835)
+
+
+Started POST "/user/login" for 127.0.0.1 at 2023-03-27 11:36:00 +0300
+Processing by UsersController#login as */*
+  Parameters: {"username"=>"John Doe", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username = 'John Doe' OR email = NULL) ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17:in `login'
+Completed 200 OK in 401ms (Views: 0.4ms | ActiveRecord: 0.4ms | Allocations: 4591)
+
+
+Started POST "/user/login" for 127.0.0.1 at 2023-03-27 11:37:13 +0300
+Processing by UsersController#login as */*
+  Parameters: {"username"=>"John Doe", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username = 'John Doe' OR email = NULL) ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17:in `login'
+Completed 200 OK in 420ms (Views: 0.6ms | ActiveRecord: 2.4ms | Allocations: 1189)
+
+
+Started GET "/verify" for 127.0.0.1 at 2023-03-27 11:42:54 +0300
+  
+ActionController::RoutingError (uninitialized constant ApplicationsController
+Did you mean?  ApplicationController):
+  
+Started GET "/verify" for 127.0.0.1 at 2023-03-27 11:43:25 +0300
+Processing by ApplicationController#verify_auth as */*
+  Parameters: {"title"=>"Egg and Cheese Croissant", "priority"=>"medium", "desc"=>"Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.", "application"=>{"title"=>"Egg and Cheese Croissant", "priority"=>"medium", "desc"=>"Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant."}}
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | Allocations: 123)
+
+
+Started GET "/verify" for 127.0.0.1 at 2023-03-27 11:44:11 +0300
+Processing by ApplicationController#verify_auth as */*
+  Parameters: {"title"=>"Egg and Cheese Croissant", "priority"=>"medium", "desc"=>"Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.", "application"=>{"title"=>"Egg and Cheese Croissant", "priority"=>"medium", "desc"=>"Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant."}}
+Completed 200 OK in 6ms (Views: 1.5ms | Allocations: 236)
+
+
+Started GET "/verify" for 127.0.0.1 at 2023-03-27 11:45:11 +0300
+Processing by ApplicationController#verify_auth as */*
+  Parameters: {"title"=>"Egg and Cheese Croissant", "priority"=>"medium", "desc"=>"Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.", "application"=>{"title"=>"Egg and Cheese Croissant", "priority"=>"medium", "desc"=>"Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant."}}
+Completed 200 OK in 0ms (Views: 0.1ms | Allocations: 210)
+
+
+Started POST "/todos" for 127.0.0.1 at 2023-03-27 11:52:12 +0300
+  
+ActionController::RoutingError (No route matches [POST] "/todos"):
+  
+Started GET "/todos" for 127.0.0.1 at 2023-03-27 11:52:35 +0300
+Processing by TodosController#index as */*
+  Parameters: {"strength"=>"Average", "power_id"=>1, "hero_id"=>3}
+Filter chain halted as :verify_auth rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.3ms | Allocations: 147)
+
+
+Started GET "/todos" for 127.0.0.1 at 2023-03-27 11:54:17 +0300
+Processing by TodosController#index as */*
+  Parameters: {"strength"=>"Average", "power_id"=>1, "hero_id"=>3}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:72:in `user'
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ?[0m  [["user_id", 2]]
+  ↳ app/controllers/application_controller.rb:6:in `app_response'
+Completed 200 OK in 33ms (Views: 0.8ms | ActiveRecord: 1.1ms | Allocations: 15390)
+
+
+Started GET "/static/js/bundle.js" for ::1 at 2023-03-28 12:58:57 +0300
+  
+ActionController::RoutingError (No route matches [GET] "/static/js/bundle.js"):
+  
+Started GET "/manifest.json" for ::1 at 2023-03-28 12:58:57 +0300
+  
+ActionController::RoutingError (No route matches [GET] "/manifest.json"):
+  

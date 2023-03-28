@@ -13,4 +13,8 @@ Rails.application.routes.draw do
   # resources :todos, only: [:create]
   post '/todos/create', to: "todos#create"
   put '/todos/:id', to: "todos#update"
+  delete '/todos/:id', to: "todos#destroy"
+  get '/todos', to: "todos#index"
+
+  get '/verify', to: "application#verify_auth"
 end

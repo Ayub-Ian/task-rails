@@ -3,7 +3,43 @@ class ApplicationController < ActionController::API
     rescue_from StandardError, with: :standard_error
     # Custom HTTP response
     def app_response(message: 'Success', status: 200, data: nil) 
-        render json: {message: message, status: status, data: data}
+        render json: {message: message,  data: data}, status: status
+    end
+
+    # hash data into web token
+    def encode(uid, email) 
+        payload = {
+            data: {
+                uid: uid,
+                email: email
+            },
+            exp: Time.now.to_i + (6 * 3600)
+        }
+        begin
+        JWT.encode(payload, ENV['task_train_key'], 'HS256')
+        rescue JWT::EncodeError => e
+            app_response(message: 'failed', status: 400, data: { info: 'Something went wrong. Please try again' })
+        end
+    end
+
+    # unhash the token
+    def decode token
+        begin
+        JWT.decode token, ENV['task_train_key'], true, { algorithm: 'HS256' }
+        rescue JWT::DecodeError => exception
+            app_response(message: 'failed', status: 401, data: { info: 'Your session has expired. Please login again to continue' })
+        end
+    end
+
+    # verify auth headers
+    def verify_auth
+        auth_headers = request.headers['Authorization']
+        if !auth_headers
+            app_response(message: 'failed', status: 401, data: { info: 'Your request is not authorized.' })
+        else
+            token = auth_headers.split(' ')[1]
+            save_user_id(token)
+        end
     end
 
     # store user id in session
@@ -27,13 +63,22 @@ class ApplicationController < ActionController::API
         end
     end
 
+    def save_user_id token
+        @uid = decode(token)[0]["data"]["uid"].to_i
+    end
+
     # get logged in user id
     def user
+        User.find(@uid)
+    end
+
+    # get logged in user [session]
+    def user_session
         User.find(session[:uid].to_i)
     end
 
     # rescue all common errors
     def standard_error exception
-        app_response(message: 'failed', data: {info: exception.message}, status: unprocessable_entity)
+        app_response(message: 'failed', data: {info: exception.message}, status: :unprocessable_entity)
     end
 end

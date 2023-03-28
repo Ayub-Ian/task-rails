@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
     wrap_parameters format: []
-    before_action :session_expired?
+    # before_action :session_expired?
+    before_action :verify_auth
 
     def create
         todo = user.todos.create(todo_params)
@@ -18,6 +19,16 @@ class TodosController < ApplicationController
         else
             app_response(message:'failed', status: :unprocessable_entity )
         end
+    end
+
+    def destroy
+        todo = user.todos.find(params[:id]).destroy
+        app_response(message: 'success', status: 204 , data: {info: "deleted todo successfully"})
+    end
+
+    def index
+        todos = user.todos.all
+        app_response(message: 'success', data: todos)
     end
 
     private
